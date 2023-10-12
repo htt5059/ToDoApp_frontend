@@ -1,0 +1,28 @@
+<div class='container px-4'>
+    <h1 class="text-center">Register Page</h1>
+    <div class="border border-dark">
+        <form [formGroup]="registerForm" class="mt-2" (ngSubmit)="onSubmit()">
+            <div class="container px-4 mb-2">
+                <input formControlName="fullName" class="p-2 form-control" type="text" placeholder="Full Name">
+                <span *ngIf="registerForm.hasError('required', 'fullName') && (registerForm.controls['fullName'].dirty || registerForm.controls['fullName'].touched)" class="text-danger">Full Name is Required</span>
+            </div>
+            <div class="container px-4 mb-2">
+                <input formControlName="email" class="p-2 form-control" type="email" placeholder="Email">
+                <span *ngIf="registerForm.hasError('required', 'email') && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)" class="text-danger">Email is Required</span>
+                <span *ngIf="registerForm.hasError('email', 'email') && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)" class="text-danger">Email is Invalid</span>
+            </div>
+            <div class="container px-4 mb-2">
+                <input formControlName="password" class="p-2 form-control" type="password" placeholder="Password">
+                <span *ngIf="registerForm.hasError('required', 'password') && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" class="text-danger">Password is Required</span>
+            </div>
+            <div class="container px-4 d-flex justify-content-center align-items-center">
+                <button class="btn btn-primary m-2" (click)="onSubmit()">Create a new account</button>
+            </div>
+            <div class="container px-4">
+                <h6 class="text-center">Already have an account?
+                    <a routerLink="/login">Login</a>
+                </h6>
+            </div>
+        </form>
+    </div>
+</div>

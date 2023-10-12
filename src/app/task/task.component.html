@@ -1,0 +1,108 @@
+<div class="container px-2">
+    <div class="row row-cols-1 row-cols-md-2">
+        <div class="col col-sm-12 col-lg-5">
+            <div class="border-bottom border-dark">
+                <h6 class="text-center">Task Details</h6>
+            </div>
+           
+            <form class="mb-2" #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+                <div class="row row-cols-1 row-cols-lg-2">
+                    <div class="d-none">
+                        <div class="d-flex justify-content-between">
+                            <div class='row row-cols-1'>
+                                <div class="col">
+                                    <label for="_id">ID</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="_id" #_id="ngModel" [(ngModel)]="taskService.selectedTask._id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <div class='row row-cols-1'>
+                                <div class="col">
+                                    <label for="taskName">Task Name </label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" placeholder="Input your task here" type="text" name="taskName" #taskName="ngModel" [(ngModel)]="taskService.selectedTask.taskName" required/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <div class='row row-cols-1'>
+                                <div class="col">
+                                    <label for="taskName">Task Status </label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="taskStatus" #taskStatus="ngModel" [(ngModel)]="taskService.selectedTask.taskStatus"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-secondary" type="button" (click)="resetForm(taskForm)">Reset</button>
+                    <button class="btn btn-primary" id="liveToastBtn" type="button" (click)="onSubmit(taskForm)">Submit</button>
+                </div>
+            </form>    
+        </div>
+        <div class="col col-sm-12 col-lg-7">
+            <!--Table Header  -->
+            <div class="row row-cols-12 border-bottom border-dark">
+                <div class="col d-none">Id</div>
+                <div class="col col-sm-4 col-md-5 col-lg-4">
+                    <h6 class="text-center">Task Name</h6>
+                </div>
+                <div class="col col-sm-3 col-md-4 col-lg-3">
+                    <h6 class="text-center">Task Status</h6>
+                </div>
+                <div class="col d-none">
+                    <h6 class="text-center">Created At</h6>
+                </div>
+                <div class="col d-none d-lg-block col-lg-3">
+                    <h6 class="text-center">Updated At</h6>
+                </div>
+                <div class='col col-sm-3 col-md-3 col-lg-2'>
+                    <h6 class="text-center">Actions</h6>
+                </div>
+            </div>
+            <div class="row row-cols-12" *ngFor="let task of taskService.tasks">
+                <div class="col d-none">{{task._id}}</div>
+                <div class="col col-sm-4 col-md-5 col-lg-4">
+                    <p>{{task.taskName}}</p>
+                </div>
+                <div class="col col-sm-3 col-md-4 col-lg-3">
+                    <p class="text-center">{{task.taskStatus}}</p>
+                </div>
+                <div class="col d-none">
+                    <p class="text-center">{{task.createdAt | date:'MM-dd-yyyy'}}</p>
+                </div>
+                <div class="col d-none d-lg-block col-lg-3">
+                    <p class="text-center">{{task.updatedAt | date:'MM-dd-yyyy'}}</p>
+                </div>
+                <div class='col col-sm-3 col-md-3 col-lg-2'>
+                    <div class="d-flex justify-content-around">
+                        <a class="action-btn" (click)="onDelete(task)">
+                            <i class="bi bi-trash-fill text-danger"></i>
+                        </a>
+                        <a class="action-btn" (click)="onEdit(task)">
+                            <i class="bi bi-pencil-fill text-warning"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body bg-dark text-white">
+        Submit Successfully!
+      </div>
+    </div>
+</div>
