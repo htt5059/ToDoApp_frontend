@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { LoginService } from './login/services/login.service';
 import { RegisterComponent } from './register/register.component';
 
@@ -15,7 +14,6 @@ import { RegisterComponent } from './register/register.component';
   declarations: [
     AppComponent,
     TaskComponent,
-    SignupComponent,
   ],
   imports: [
     BrowserModule,

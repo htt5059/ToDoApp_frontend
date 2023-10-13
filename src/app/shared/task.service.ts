@@ -7,7 +7,7 @@ import { Task } from './task.model';
 export class TaskService {
   selectedTask: Task = new Task('', '', '', new Date(), new Date());
   tasks: Task[] = [];
-  readonly baseUrl = `http://localhost:3000/task`
+  readonly baseUrl = `https://task-tracking-server-feabfeb69418.herokuapp.com/task`
   constructor(private http: HttpClient) { }
 
   postTask(task: Task){

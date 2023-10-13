@@ -8,7 +8,7 @@ import { User } from 'src/app/shared/user.model';
 export class LoginService {
   user: User = new User('', '', '', '');
   token: string = localStorage.getItem('access_tokens') || '';
-  baseUrl = 'http://localhost:3000/auth'
+  baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/auth'
   constructor(private http: HttpClient) { }
 
   login(user: User){
