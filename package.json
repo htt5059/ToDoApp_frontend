@@ -1,9 +1,13 @@
 {
+  "engines": {
+    "node": "18.17.1",
+    "npm": "10.2.0"
+  },
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
