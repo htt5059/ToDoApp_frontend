@@ -1,11 +1,26 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import jwt_decode from 'jwt-decode';
+
+
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const isAuthenticated = localStorage.getItem('access_tokens')
-  if (!isAuthenticated)
+  function getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
+  const token = getDecodedAccessToken(localStorage.getItem('token') || "");
+  
+  try{
+    const isAuthenticated = token.isAuthenticated || false;
+    if (isAuthenticated)
+      return true;
     return inject(Router).createUrlTree(['/login']);
-    // return false;
-
-  return true;
+  }
+  finally{
+    return true;
+  }
 };

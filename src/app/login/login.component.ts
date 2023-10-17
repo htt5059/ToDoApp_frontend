@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class LoginComponent {
-  cookie: Cookie = new Cookie('');
+  cookie: Cookie = new Cookie("");
   loginForm!: FormGroup;
 
   constructor(
@@ -35,10 +35,11 @@ export class LoginComponent {
           _id: '',
           fullName: '',
         }
-        
-        this.cookie.token = JSON.stringify(res.body);
-        localStorage.setItem('access_tokens', this.cookie.token);
-        this.router.navigateByUrl('/')
+        if (res.body!=null){
+          this.cookie = res.body;
+          localStorage.setItem("token", this.cookie.token);
+          this.router.navigateByUrl('/')
+        }
       }
     })
   }

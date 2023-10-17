@@ -11,6 +11,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "postinstall": "node patch.js",
     "heroku-postbuild": "ng build --configuration production"
   },
   "private": true,
@@ -32,6 +33,7 @@
     "bootstrap-icons": "^1.11.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jwt-decode": "^3.1.2",
     "materialize-css": "^1.0.0-rc.2",
     "ngx-cookie-service": "^16.0.1",
     "path": "^0.12.7",
@@ -41,8 +43,10 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^16.0.1",
     "@types/jasmine": "~4.3.0",
     "@types/jquery": "^3.5.20",
+    "@types/jsonwebtoken": "^9.0.3",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

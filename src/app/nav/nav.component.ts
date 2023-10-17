@@ -20,13 +20,14 @@ export class NavComponent {
   }
 
   getToken(){
-    console.log('getting token')
-    this.loginService.token = localStorage.getItem('access_tokens') || '';
-    this.token = localStorage.getItem('access_tokens') || '';
+    this.loginService.token = localStorage.getItem('token') || '';
+    this.token = localStorage.getItem('token') || '';
+    this.hasLogin = this.token===''? false: true;
+
   }
   
   signOut(){
-    localStorage.removeItem('access_tokens');
+    localStorage.removeItem('token');
     this.loginService.token = '';
     this.token = '';
     this.router.navigateByUrl('/login');
@@ -37,10 +38,7 @@ export class NavComponent {
     //Add 'implements OnInit' to the class.
     this.router.events.subscribe((val: any) => {
       if(val.url){
-        console.warn('refresh');
         this.getToken();
-        if(this.token != '')
-          this.hasLogin = true;
       }
     })
   }

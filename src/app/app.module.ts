@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/services/login.service';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     BrowserModule,
+    ForgotPasswordComponent,
     FormsModule,
     AppRoutingModule,
     HttpClientModule, 

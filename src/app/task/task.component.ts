@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../shared/task.service';
+import { TaskService } from './services/task.service';
 import { NgForm } from '@angular/forms';
-import {Toast} from 'bootstrap'
+import { Toast } from 'bootstrap'
 import { Task } from '../shared/task.model';
 import { Router } from '@angular/router';
+import { Cookie } from '../shared/cookie.model';
 
 @Component({
   selector: 'app-task',
@@ -34,7 +35,7 @@ export class TaskComponent implements OnInit {
   }
   onSubmit(form: NgForm){
     if(form.value._id=='' || form.value._id==null){
-      this.taskService.postTask(form.value)
+      this.taskService.postTask(form.value, new Cookie(localStorage.getItem('token') || ""))
       .subscribe((res)=>{
           this.activateToastMessage();
           this.resetForm(form);
@@ -43,7 +44,7 @@ export class TaskComponent implements OnInit {
     }
     else{
       this.taskService.updateTask(form.value)
-        .subscribe((res)=> {
+        .subscribe((res) => {
           this.activateToastMessage();
           this.resetForm(form);
           this.getTasks();
@@ -58,14 +59,18 @@ export class TaskComponent implements OnInit {
     this.taskService.selectedTask = {
       taskName: "",
       taskStatus: "",
-      _id: "" 
+      _id: "",
+      userId: ""
     }
   }
 
   getTasks(){
-    this.taskService.getTasks().subscribe((res) => {
-      this.taskService.tasks = res as Task[];
-    });
+    const token = localStorage.getItem('token');
+    if (token != null){
+      this.taskService.getTasks(new Cookie(token)).subscribe((res) => {
+        this.taskService.tasks = res as Task[];
+      });
+    }
   }
 
   onEdit(task: Task){
