@@ -6,8 +6,9 @@ import { User } from 'src/app/shared/user.model';
   providedIn: 'root'
 })
 export class RegisterService {
-  user: User = new User('', '', '', '');
-  baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/auth'
+  user!: User;
+  // baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/auth'
+  private readonly baseUrl = "http://localhost:3000/auth"
   constructor(private http: HttpClient) { }
 
   register(user: User){

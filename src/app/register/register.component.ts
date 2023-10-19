@@ -36,6 +36,7 @@ export class RegisterComponent {
           password: '',
           _id: '',
           fullName: '',
+          socialMediaUserId: ''
         }
         
         localStorage.setItem('access_tokens', JSON.stringify(res));

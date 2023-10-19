@@ -3,6 +3,7 @@ import { LoginService } from '../login/services/login.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +16,11 @@ export class NavComponent {
   loginService: LoginService
   token: string = '';
   hasLogin: boolean = false;
-  constructor(loginService: LoginService, private router: Router){
+  constructor(
+    loginService: LoginService,
+    private router: Router,
+    private socialAuthService: SocialAuthService
+    ){
     this.loginService = loginService;
   }
 
@@ -26,10 +31,10 @@ export class NavComponent {
 
   }
   
-  signOut(){
+  async signOut(){
+    await this.socialAuthService.signOut(true);
     localStorage.removeItem('token');
-    this.loginService.token = '';
-    this.token = '';
+    console.log(localStorage.getItem('token'))
     this.router.navigateByUrl('/login');
   }
 

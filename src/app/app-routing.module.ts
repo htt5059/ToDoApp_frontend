@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, provideRouter, withComponentInputBinding } from '@angular/router';
 
 
 import { TaskComponent } from './task/task.component';
@@ -11,13 +11,16 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 const routes: Routes = [
   {path: 'login', title: 'Login', component: LoginComponent},
   {path: 'register', title: 'Register', component: RegisterComponent},
-  {path: 'forgotPassword/:token', title: 'Forgot Your Password', component: ForgotPasswordComponent},
-  {path: 'forgotPassword', title: 'Forgot Your Password', component: ForgotPasswordComponent},
+  {path: 'forgot-password', title: 'Forgot Your Password', component: ForgotPasswordComponent},
+  {path: 'forgot-password/:token', title: 'Forgot Your Password', component: ForgotPasswordComponent},
   {path: '', title: 'Tasks', component: TaskComponent, canActivate: [authGuard]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
+  exports: [RouterModule],
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+  ]
 })
 export class AppRoutingModule { }

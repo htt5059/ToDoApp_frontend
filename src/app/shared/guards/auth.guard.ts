@@ -14,13 +14,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
   const token = getDecodedAccessToken(localStorage.getItem('token') || "");
   
-  try{
-    const isAuthenticated = token.isAuthenticated || false;
+  if(token != null){
+    const isAuthenticated = token.isAuthenticated || token.status=='connected' || false;
     if (isAuthenticated)
       return true;
-    return inject(Router).createUrlTree(['/login']);
   }
-  finally{
-    return true;
-  }
+  return inject(Router).createUrlTree(['/login']);
+  
 };

@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule, ParamMap } from '@angular/router';
 import { catchError, Observable, switchMap } from 'rxjs';
-
 import { Cookie } from '../shared/cookie.model';
 import { ForgotPasswordService } from './services/forgot-password.service';
-
-
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,8 +20,9 @@ export class ForgotPasswordComponent {
   resetPasswordForm!: FormGroup;
   validInfo: boolean = false;
   tokenExpired: boolean = false;
-  token$!: Observable<string>;
-  token!: string;
+  token$!: string;
+
+  @Input() token!: string;
 
   constructor(
     private router: Router,
@@ -44,7 +43,7 @@ export class ForgotPasswordComponent {
   }
 
   onSubmit(){
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || this.token;
     this.cookie = new Cookie(token || "");
     if (token == null){
       const {email, fullName} = this.resetPasswordForm.value;
@@ -79,19 +78,28 @@ export class ForgotPasswordComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     localStorage.removeItem('token');
-    this.token$ = this.activatedRoute.paramMap.pipe(
-      switchMap(params => {
-        return params.get('id') || "";
-      })
-    )
-    // this.activatedRoute.params.subscribe(params => {
-    //   console.log(params['token'])
-    // })
-    this.resetPasswordForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      fullName: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    
+    try{
+      const {email, fullName} = this.passwordService.getDecodedAccessToken(this.token);
+    
+      if(email != null && fullName != null){
+        localStorage.setItem('token', this.token);
+        this.cookie = new Cookie(this.token);
+      }
+      
+      this.resetPasswordForm = this.formBuilder.group({
+        email: [email || '', Validators.compose([Validators.required, Validators.email])],
+        fullName: [fullName || '', Validators.required],
+        password: ['', Validators.required]
+      });
+    }
+    catch(error){
+      this.resetPasswordForm = this.formBuilder.group({
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        fullName: ['', Validators.required],
+        password: ['', Validators.required]
+      });
+    }
   }
 
 }

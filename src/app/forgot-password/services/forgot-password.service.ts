@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cookie } from 'src/app/shared/cookie.model';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,13 @@ export class ForgotPasswordService {
       token: localStorage.getItem('token'),
       password: password
     }, {observe: 'response'})
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 }
