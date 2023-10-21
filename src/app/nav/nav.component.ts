@@ -1,4 +1,4 @@
-import { Component, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../login/services/login.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -28,14 +28,17 @@ export class NavComponent {
     this.loginService.token = localStorage.getItem('token') || '';
     this.token = localStorage.getItem('token') || '';
     this.hasLogin = this.token===''? false: true;
-
   }
   
   async signOut(){
-    await this.socialAuthService.signOut(true);
-    localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'))
-    this.router.navigateByUrl('/login');
+    try{
+      await this.socialAuthService.signOut(true);
+    }
+    finally{
+      localStorage.removeItem('token');
+      console.log(localStorage.getItem('token'))
+      this.router.navigateByUrl('/login');
+    }
   }
 
   ngOnInit(): void {

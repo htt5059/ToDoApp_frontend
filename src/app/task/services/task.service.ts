@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Task } from '../../shared/task.model';
 import { Cookie } from 'src/app/shared/cookie.model';
 import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TaskService {
   selectedTask!: Task;
   tasks: Task[] = [];
   // readonly baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/task';
-  readonly baseUrl = 'http://localhost:3000/task';
+  readonly baseUrl: string = environment.serverUrl+'/task';
   constructor(private http: HttpClient) { }
 
   getDecodedAccessToken(token: string): any {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/shared/user.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { User } from 'src/app/shared/user.model';
 export class RegisterService {
   user!: User;
   // baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/auth'
-  private readonly baseUrl = "http://localhost:3000/auth"
+  private readonly baseUrl = environment.serverUrl + '/auth';
   constructor(private http: HttpClient) { }
 
   register(user: User){

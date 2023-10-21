@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cookie } from 'src/app/shared/cookie.model';
 import { User } from 'src/app/shared/user.model';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class LoginService {
   user!: User;
   token: string = localStorage.getItem('access_tokens') || '';
   // baseUrl = 'https://task-tracking-server-feabfeb69418.herokuapp.com/auth'
-  private readonly baseUrl = "http://localhost:3000/auth"
+  private readonly baseUrl = environment.serverUrl+'/auth';
   constructor(private http: HttpClient) { }
 
   login(user: User){
