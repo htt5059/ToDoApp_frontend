@@ -6,7 +6,7 @@ The user is required to log in to use the service. The user can either log in by
 ![Login Picture Not Found](image.png)
 
 If the user decides to use social media to log in, the user will be asked their social media account in a prompt popup.
-![Facebook Prompt Picture Not Found](image-1.png)
+![Facebook Prompt Login Picture Not Found](image-1.png)
 
 
 When the users is logged in or has created a new account, the user will be redirected to the homepage, where the user can use the services. The navigation bar also will be updated to allow the user to sign out.
