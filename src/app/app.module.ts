@@ -11,11 +11,14 @@ import { LoginService } from './login/services/login.service';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { FacebookLoginProvider, SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { environment } from 'src/environments/environment';
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
+    IntroComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -36,11 +39,11 @@ import { FacebookLoginProvider, SocialAuthServiceConfig, GoogleLoginProvider } f
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('723613323145449')
+            provider: new FacebookLoginProvider(environment.FacebookClientId)
           },
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('77826641125-729trg3n8ndmo09vnv2v4unebo77prhd.apps.googleusercontent.com', {
+            provider: new GoogleLoginProvider(environment.GoogleClientId, {
               oneTapEnabled: false,
             })
           }

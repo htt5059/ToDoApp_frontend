@@ -7,13 +7,15 @@ import { LoginComponent } from './login/login.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { IntroComponent } from './intro/intro.component';
 
 const routes: Routes = [
   {path: 'login', title: 'Login', component: LoginComponent},
   {path: 'register', title: 'Register', component: RegisterComponent},
   {path: 'forgot-password', title: 'Forgot Your Password', component: ForgotPasswordComponent},
   {path: 'forgot-password/:token', title: 'Forgot Your Password', component: ForgotPasswordComponent},
-  {path: '', title: 'Tasks', component: TaskComponent, canActivate: [authGuard]}
+  {path: 'task', title: 'Tasks', component: TaskComponent, canActivate: [authGuard]},
+  {path: '', title: 'Intro', component: IntroComponent},
 ];
 
 @NgModule({

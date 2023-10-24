@@ -52,7 +52,7 @@ export class LoginComponent {
     if(res.body!=null){
       this.cookie = res.body;
       localStorage.setItem('token', this.cookie.token);
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/task');
     }
   }
 
